@@ -17,7 +17,12 @@ def index():  # pylint: disable=missing-function-docstring
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    return jsonify({"ip": request.remote_addr}), 200
+    return (
+        jsonify(
+            {"ip": request.remote_addr, "port": request.environ.get("REMOTE_PORT")}
+        ),
+        200,
+    )
 
 
 @app.route("/getDatabase", methods=["GET"])
