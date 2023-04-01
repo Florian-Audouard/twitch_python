@@ -7,6 +7,8 @@ os.chdir(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
+# test
+
 
 @app.route("/")
 def index():  # pylint: disable=missing-function-docstring
