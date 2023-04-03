@@ -17,13 +17,13 @@ def index():  # pylint: disable=missing-function-docstring
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
-    save_ip = get_data()
+    # save_ip = get_data()
     raw_ip = request.remote_addr
     ip = raw_ip + "-1"
-    count = 2
-    while ip in save_ip:
-        ip = raw_ip + "-" + count
-        count += 1
+    # count = 2
+    # while ip in save_ip:
+    #     ip = raw_ip + "-" + count
+    #     count += 1
 
     return (
         jsonify({"ip": ip}),
