@@ -1,13 +1,11 @@
 import os
 from flask import Flask, jsonify, render_template, request
-
+from database import reset_table, get_data, add_message
 
 os.chdir(os.path.dirname(__file__))
 
 
 app = Flask(__name__)
-
-# test
 
 
 @app.route("/")
@@ -17,10 +15,16 @@ def index():  # pylint: disable=missing-function-docstring
 
 @app.route("/get_my_ip", methods=["GET"])
 def get_my_ip():
+    save_ip = get_data()
+    raw_ip = request.remote_addr
+    ip = raw_ip + "-1"
+    count = 2
+    while ip in save_ip:
+        ip = raw_ip + "-" + count
+        count += 1
+
     return (
-        jsonify(
-            {"ip": request.remote_addr, "port": request.environ.get("REMOTE_PORT")}
-        ),
+        jsonify({"ip": ip}),
         200,
     )
 
@@ -28,6 +32,11 @@ def get_my_ip():
 @app.route("/getDatabase", methods=["GET"])
 def get_database():  # pylint: disable=missing-function-docstring
     return
+
+
+@app.route("/reset", methods=["GET"])
+def reset():  # pylint: disable=missing-function-docstring
+    reset_table()
 
 
 if __name__ == "__main__":
