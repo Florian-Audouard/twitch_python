@@ -1,11 +1,13 @@
 import os
 from flask import Flask, jsonify, render_template, request
 from database import reset_table, get_data, add_message
+from flask_cors import CORS
 
 os.chdir(os.path.dirname(__file__))
 
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/")
